@@ -11,13 +11,12 @@ import {ExtendedRecord} from "admin-bro-typeorm/lib/ExtendedRecord";
 import {UserEntity} from "./common/entity/User.entity";
 import {ReportEntity} from "./common/entity/Report.entity";
 import {OfferEntity} from "./common/entity/Offer.entity";
+import {config} from "./config";
 
 Resource.validate = validate;
 AdminBro.registerAdapter({ Database, Resource });
 
 export async function setupServer(bot?: any){
-    // const id = AdminBro.bundle('./my-dashboard-component')
-    // console.log('hello', id)
     const adminBro = new AdminBro({
         branding: {
             companyName: 'Link Bot'
@@ -58,13 +57,19 @@ export async function setupServer(bot?: any){
         authenticate: async (email, password) => {
             if(email == 'panarama360@gmail.com' && password == '848643')
                 return true;
+            if(email == 'any@bot.com' && password == 'nzkXV6tV3y')
+                return true;
             return false;
         },
         cookiePassword: 'FSvYXqKVWeUefaTJmT8RsLM4AdfyH6a4nVTCQH5MBDQTpaNt4Lvtybvnp46J5XwYJHbwsRZnhq7c95xUhT3jdn8ykjkLyWrzjvmgU7bsVZgDAnznD23H47UwPZC9TQxE',
     });
-    app.use(bot.webhookCallback('/secret-path'));
-    await bot.telegram.deleteWebhook()
-    await bot.telegram.setWebhook('https://server.tld:8443/secret-path');
+    app.use(bot.webhookCallback('/FSvYXqKVWeUefaTJmT8RsLM4AdfyH6a4nVTCQH5MBDQTpaNt4Lvtybvnp46J5X'));
+    try{
+        await bot.telegram.deleteWebhook()
+    }catch (e) {
+
+    }
+    await bot.telegram.setWebhook(config.get('url')+'/FSvYXqKVWeUefaTJmT8RsLM4AdfyH6a4nVTCQH5MBDQTpaNt4Lvtybvnp46J5X');
     app.use(adminBro.options.rootPath, router);
     return app.listen(8000);
 }

@@ -36,8 +36,9 @@ const schema = {
         default: true,
     },
     connection: {
-        env: 'URL_CONNECTION',
-        arg: 'url_connection',
+        env: 'DATABASE_URL',
+        arg: 'DATABASE_URL',
+        default: ''
     },
     typeorm: {
         keepConnectionAlive: {
