@@ -15,9 +15,13 @@ const schema = {
         arg: 'token',
         default: ''
     },
+    url: {
+        arg: 'url',
+        default: ''
+    },
     program: {
         doc: 'The program which runs code',
-        format: ['node', 'tsnode', 'webpack'],
+        format: ['node', 'tsnode', 'webpack', 'production'],
         default: 'node',
         env: 'PROGRAM',
         arg: 'program',
@@ -30,6 +34,10 @@ const schema = {
     },
     dev: {
         default: true,
+    },
+    connection: {
+        env: 'URL_CONNECTION',
+        arg: 'url_connection',
     },
     typeorm: {
         keepConnectionAlive: {

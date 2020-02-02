@@ -1,4 +1,5 @@
 import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {UseAsTitle} from "admin-bro-typeorm";
 
 @Entity()
 export class UserEntity extends BaseEntity{
@@ -38,4 +39,14 @@ export class UserEntity extends BaseEntity{
 
     @ManyToOne(type => UserEntity, {nullable: true})
     parentRef: UserEntity;
+
+    @Column("int", { nullable: true })
+    parentRefId: number | null;
+
+    @UseAsTitle()
+    public toString(): string
+    {
+        return `${this.firstName}`;
+    }
+
 }

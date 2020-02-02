@@ -10,10 +10,10 @@ export function regUser(firstLogin?: (ctx: Context)=>void) {
             chatId: ctx.chat.id
         });
         if (!user) {
-            const refId = +ctx.message.text.split(' ')[1];
-            const parent = await UserEntity.findOne({
-                chatId: refId
-            })
+
+            // const parent = await UserEntity.findOne({
+            //     chatId: refId
+            // })
             user = new UserEntity({
                 chatId: ctx.message.from.id,
                 isBot: ctx.message.from.is_bot,
@@ -22,12 +22,19 @@ export function regUser(firstLogin?: (ctx: Context)=>void) {
                 lastName: ctx.message.from.last_name,
                 languageCode: ctx.message.from.language_code,
             });
-            if(parent)
-                user.parentRef = parent;
+            let refId = ctx.message.text.split(' ')[1];
+            if(refId && Number.isInteger(+refId))
+                user.parentRef = await UserEntity.findOne({
+                    chatId: +refId
+                })
             await user.save();
+            (ctx as any).firstStart = true;
             if(firstLogin)
                 firstLogin(ctx);
+
         }
+        (ctx as any).user = user;
+
         await next();
         await UserEntity.update({
             id: user.id
