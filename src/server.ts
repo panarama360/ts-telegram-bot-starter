@@ -1,10 +1,10 @@
-import * as express from "express";
+import express from "express";
 import { Database, Resource, UseAsTitle, UseForSearch } from "admin-bro-typeorm";
 import { validate } from 'class-validator'
 
 declare const module: any;
 import AdminBro from "admin-bro";
-import * as AdminBroExpress from "admin-bro-expressjs"
+import AdminBroExpress from "admin-bro-expressjs"
 import {SiteEntity} from "./common/entity/Site.entity";
 import {CategoryEntity} from "./common/entity/Category.entity";
 import {ExtendedRecord} from "admin-bro-typeorm/lib/ExtendedRecord";

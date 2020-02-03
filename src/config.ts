@@ -1,6 +1,6 @@
 import * as conf from 'dotenv';
 conf.config();
-import * as convict from 'convict';
+import convict from 'convict';
 import {MetadataArgsStorage} from "ts-telegraf-decorators";
 const schema = {
     environment: {
